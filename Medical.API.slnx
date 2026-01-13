@@ -1,0 +1,23 @@
+<Solution>
+  <Folder Name="/Medical.API/">
+    <Project Path="Medical.API.Admin/Medical.API.Admin.csproj" />
+  </Folder>
+  <Folder Name="/Medical.Infratructure/">
+    <Project Path="Medical.Infrastructure.Attr/Medical.Infrastructure.Attr.csproj" />
+    <Project Path="Medical.Infrastructure.Dto/Medical.Infrastructure.Dto.csproj" />
+    <Project Path="Medical.Infrastructure.IOC/Medical.Infrastructure.IOC.csproj" />
+    <Project Path="Medical.Infrastructure.Redis/Medical.Infrastructure.Redis.csproj" />
+    <Project Path="Medical.Infrastructure.SIgnalR/Medical.Infrastructure.SIgnalR.csproj" />
+    <Project Path="Medical.Infrastructure.Tools/Medical.Infrastructure.Tools.csproj" />
+    <Project Path="Medical.Infratructure.EFCore.MySql/Medical.Infrastructure.EFCore.MySql.csproj" />
+  </Folder>
+  <Folder Name="/Medical.Repository/">
+    <Project Path="Medical.Repository.Instance/Medical.Repository.Instance.csproj" />
+    <Project Path="Medical.Repository.Interface/Medical.Repository.Interface.csproj" />
+  </Folder>
+  <Folder Name="/Medical.Service/">
+    <Project Path="Medical.Service.EFCore/Medical.Service.EFCore.csproj" />
+    <Project Path="Medical.Service.Instance/Medical.Service.Instance.csproj" />
+    <Project Path="Medical.Service.Interface/Medical.Service.Interface.csproj" />
+  </Folder>
+</Solution>

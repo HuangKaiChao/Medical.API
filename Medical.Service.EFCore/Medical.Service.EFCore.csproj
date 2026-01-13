@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Medical.Infrastructure.Attr\Medical.Infrastructure.Attr.csproj" />
+    <ProjectReference Include="..\Medical.Infratructure.EFCore.MySql\Medical.Infrastructure.EFCore.MySql.csproj" />
+    <ProjectReference Include="..\Medical.Repository.Interface\Medical.Repository.Interface.csproj" />
+    <ProjectReference Include="..\Medical.Service.Interface\Medical.Service.Interface.csproj" />
+  </ItemGroup>
+
+</Project>

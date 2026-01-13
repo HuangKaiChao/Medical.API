@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IGeekFan.AspNetCore.Knife4jUI" Version="0.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Medical.Infrastructure.Attr\Medical.Infrastructure.Attr.csproj" />
+    <ProjectReference Include="..\Medical.Infrastructure.Dto\Medical.Infrastructure.Dto.csproj" />
+    <ProjectReference Include="..\Medical.Infrastructure.IOC\Medical.Infrastructure.IOC.csproj" />
+    <ProjectReference Include="..\Medical.Infrastructure.Redis\Medical.Infrastructure.Redis.csproj" />
+    <ProjectReference Include="..\Medical.Infrastructure.SIgnalR\Medical.Infrastructure.SIgnalR.csproj" />
+    <ProjectReference Include="..\Medical.Infrastructure.Tools\Medical.Infrastructure.Tools.csproj" />
+    <ProjectReference Include="..\Medical.Infratructure.EFCore.MySql\Medical.Infrastructure.EFCore.MySql.csproj" />
+    <ProjectReference Include="..\Medical.Repository.Instance\Medical.Repository.Instance.csproj" />
+    <ProjectReference Include="..\Medical.Repository.Interface\Medical.Repository.Interface.csproj" />
+    <ProjectReference Include="..\Medical.Service.EFCore\Medical.Service.EFCore.csproj" />
+    <ProjectReference Include="..\Medical.Service.Instance\Medical.Service.Instance.csproj" />
+    <ProjectReference Include="..\Medical.Service.Interface\Medical.Service.Interface.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Files\Admin.Files\Employee_Imgs\" />
+  </ItemGroup>
+
+</Project>
