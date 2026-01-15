@@ -40,8 +40,8 @@ namespace Medical.Service.Instance.Admin.Service
         /// 添加管理员
         /// </summary>
         /// <param name="dto"></param>
-        /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
+        /// <returns></returns>
         public async Task<Api_Response_Dto> Add_Admin(Add_Admin_Request_Dto dto)
         {
             var isExist = await _org_IOC._employeeLogin_EFCore.QueryAll(e => e.Eaccount == dto.account).AnyAsync();
