@@ -22,6 +22,11 @@ namespace Medical.Service.Instance.Admin.Service
             _org_IOC = org_IOC;
         }
 
+        /// <summary>
+        /// 添加客户
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public Task<Api_Response_Dto> Add_Customer(Add_Customer_Request_Dto dto)
         {
             if(dto == null )
