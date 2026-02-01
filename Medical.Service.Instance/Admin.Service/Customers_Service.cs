@@ -3,7 +3,9 @@ using Medical.Infrastructure.Dto.Request.Customer.Admin_Customer;
 using Medical.Infrastructure.Dto.Request.Customer.isBan_Customer;
 using Medical.Infrastructure.Dto.Response;
 using Medical.Infrastructure.Dto.Response.Customer.Admin_Customer;
+using Medical.Infrastructure.EFCore.MySql.Models;
 using Medical.Infrastructure.IOC;
+using Medical.Infrastructure.Tools;
 using Medical.Service.Interface.Admin.Service;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,15 +24,86 @@ namespace Medical.Service.Instance.Admin.Service
             _org_IOC = org_IOC;
         }
 
-        ///// <summary>
-        ///// 添加客户
-        ///// </summary>
-        ///// <param name="dto"></param>
-        ///// <returns></returns>
-        //public Task<Api_Response_Dto> Add_Customer(Add_Customer_Request_Dto dto)
-        //{
-        //    if(dto == null )
-        //}
+        /// <summary>
+        /// 添加客户
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public async Task<Api_Response_Dto> Add_Customer(Add_Customer_Request_Dto dto)
+        {
+            if (string.IsNullOrEmpty(dto.name))
+            {
+                return Get_Result(-1, "客户名不能为空");
+            }
+            if (string.IsNullOrEmpty(dto.phone))
+            {
+                return Get_Result(-1, "账号不能为空");
+            }
+            var salt = Config.GUID();
+            var pwd = EncryptUtil.LoginMd5("123456", salt);
+            var csource = "";
+            switch (dto.referral_type)
+            {
+                case 0:
+                    csource = "自然流量";
+                    break;
+                case 1:
+                    csource = "线上推广";
+                    break;
+                case 2:
+                    csource = "客户推荐";
+                    break;
+                case 3:
+                    csource = "线下活动";
+                    break;
+                case 4:
+                    csource = "其他";
+                    break;
+            }
+
+            var customer = new CusCustomer()
+            {
+                Cid = Config.GUID(),
+                Cname = dto.name,
+                Cphone = dto.phone,
+                Cgender = dto.gender,
+                Cpassword = pwd,
+                Cwechat = "",
+                Cavatar = "http://localhost:5123/Files/Mobile.Files/Customers_Image/kehu.png",
+                ChealthConcerns = dto.health_concerns,
+                CreferralType = dto.referral_type,
+                Csource = csource,
+                CassigneeId = dto.assignee_id,
+                Cstatus = dto.status,
+                Cbirthday = DateOnly.TryParse(dto.birthday, out var data) ? data : null,
+                CcreateTime = DateTime.Now,
+                CisPromoter = 0,
+                CisBan = 0,
+                Cbalance = 0,
+                CtotalConsumption= 0,
+                CcancelAmount = 0,
+                CancelOrderCount= 0,
+                CorderCount= 0,
+            };
+
+            await _customer_IOC._customers_EFCore.AddAsync(customer);
+            await _customer_IOC._cusCustomerPools_EFCore.AddAsync(new CusCustomerPool()
+            {
+                Cpid = Config.GUID(),
+                CpcustomerId = customer.Cid,
+                CpenterType = 2,
+                CptakeTime = null,
+                CplockStatus = 0,
+                CplockOperatorId = null,
+                CplockExpireTime = null,
+                CptakeOperatorId = null,
+                CpenterTime = DateTime.Now,
+            });
+
+            var result =await _customer_IOC._customers_EFCore.TransactionsAsync(_customer_IOC._cusCustomerPools_EFCore);
+
+            return Get_Result(result  ?1 :-1,result ? "ok" :"fail");
+        }
 
         public async Task<Api_Response_Dto> Delete_Customer(string id)
         {
@@ -64,7 +137,7 @@ namespace Medical.Service.Instance.Admin.Service
                     return Get_Result(0, "开始时间格式不正确");
                 }
 
-                // 尝试解析结束时间
+                // 尝试解析结束时间 
                 if (!DateTime.TryParse(dto.keyword_time[1], out var parsedEndTime))
                 {
                     return Get_Result(0, "结束时间格式不正确");
@@ -124,23 +197,18 @@ namespace Medical.Service.Instance.Admin.Service
             });
         }
 
+
+        /// <summary>
+        /// 禁用客户
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public async Task<Api_Response_Dto> isBan_Customer(isBan_Customer_Request_Dto dto)
         {
-            if (dto.cids == null || dto.cids.Count == 0)
-            {
-                return Get_Result(-1, "未选择客户");
-            }
-
-            var customers = await _customer_IOC._customers_EFCore
-                .QueryAll(d => dto.cids!.Contains(d.Cid))
-                .ToListAsync();
-
-            if (customers == null)
-            {
-                return Get_Result(-1, "未找到客户");
-            }
-
-            foreach (var c in customers)
+            if (dto.cids == null || dto.cids.Count == 0) return Get_Result(-1, "未选择客户!");
+            var customer = await _customer_IOC._customers_EFCore.QueryAll(d => dto.cids!.Contains(d.Cid)).ToListAsync();
+            if (customer.Count == 0) return Get_Result(-1, "未找到客户!");
+            foreach (var c in customer)
             {
                 c.CisBan = dto.status;
             }

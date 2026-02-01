@@ -8,12 +8,15 @@ namespace Medical.Infrastructure.IOC
     {
         public readonly Customers_EFCore _customers_EFCore;
         public readonly CusFollowups_EFCore _cusFollowups_EFCore;
+        public readonly CusCustomerPools_EFCore _cusCustomerPools_EFCore;
 
         public Customer_IOC(Customers_EFCore customers_EFCore,
-            CusFollowups_EFCore cusFollowups_EFCore)
+            CusFollowups_EFCore cusFollowups_EFCore,
+            CusCustomerPools_EFCore cusCustomerPools_EFCore)
         {
             _customers_EFCore = customers_EFCore;
             _cusFollowups_EFCore = cusFollowups_EFCore;
+            _cusCustomerPools_EFCore = cusCustomerPools_EFCore;
         }
     }
 }

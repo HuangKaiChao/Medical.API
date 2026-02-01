@@ -30,11 +30,11 @@ namespace Medical.Service.Interface.Admin.Service
         Task<Api_Response_Dto> isBan_Customer(isBan_Customer_Request_Dto dto);
 
 
-        ///// <summary>
-        ///// 添加客户
-        ///// </summary>
-        ///// <param name="dto"></param>
-        ///// <returns></returns>
-        //Task<Api_Response_Dto> Add_Customer(Add_Customer_Request_Dto dto);
+        /// <summary>
+        /// 添加客户
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        Task<Api_Response_Dto> Add_Customer(Add_Customer_Request_Dto dto);
     }
 }
